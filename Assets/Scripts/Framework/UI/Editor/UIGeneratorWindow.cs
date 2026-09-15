@@ -15,7 +15,7 @@ namespace Framework.UI.Editor
         private string nameSpaceName = "Framework.UI";
         private UILayer targetLayer = UILayer.Popup;
 
-        [MenuItem("Tool/UI Generate")]
+        [MenuItem("Tools/Framework/UI Generate")]
         public static void OpenWindow()
         {
             var window = GetWindow<UIGeneratorWindow>("UI Generator");
