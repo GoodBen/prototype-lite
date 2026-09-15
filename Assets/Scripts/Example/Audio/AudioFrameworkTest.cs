@@ -24,16 +24,15 @@ namespace Example.Audio
             var testDataSO = ScriptableObject.CreateInstance<AudioDataSO>();
             
             if (bgmMainClip != null)
-                testDataSO.RegisterDefinition(new AudioDefinition(AudioType.MainTheme, bgmMainClip, 1.0f));
+                testDataSO.RegisterDefinition(new AudioDefinition(Framework.Audio.AudioType.MainTheme, bgmMainClip, 1.0f));
             if (bgmBattleClip != null)
-                testDataSO.RegisterDefinition(new AudioDefinition(AudioType.Battle, bgmBattleClip, 1.0f));
+                testDataSO.RegisterDefinition(new AudioDefinition(Framework.Audio.AudioType.Battle, bgmBattleClip, 1.0f));
             if (sfxAttackClip != null)
-                testDataSO.RegisterDefinition(new AudioDefinition(AudioType.Attack, sfxAttackClip, 0.8f, 1.2f));
+                testDataSO.RegisterDefinition(new AudioDefinition(Framework.Audio.AudioType.Attack, sfxAttackClip, 0.8f, 1.2f));
             if (sfxHitClip != null)
-                testDataSO.RegisterDefinition(new AudioDefinition(AudioType.Hit, sfxHitClip, 1.0f));
+                testDataSO.RegisterDefinition(new AudioDefinition(Framework.Audio.AudioType.Hit, sfxHitClip, 1.0f));
             if (sfxClickClip != null)
-                testDataSO.RegisterDefinition(new AudioDefinition(AudioType.ButtonClick, sfxClickClip, 0.5f));
-
+                testDataSO.RegisterDefinition(new AudioDefinition(Framework.Audio.AudioType.ButtonClick, sfxClickClip, 0.5f));
             AudioPlayer.Instance.SetAudioData(testDataSO);
 
             StartCoroutine(RunTestSequence());
@@ -45,23 +44,23 @@ namespace Example.Audio
             // Step 1. BGM 재생 및 Loop 테스트
             // -------------------------------------------------------------
             Debug.Log("[AudioFrameworkTest] Step 1: Playing BGM (MainTheme, fadeDuration: 1.0s)...");
-            AudioPlayer.PlayBgm(AudioType.MainTheme, loop: true, fadeDuration: 1.0f);
+            AudioPlayer.PlayBgm(Framework.Audio.AudioType.MainTheme, loop: true, fadeDuration: 1.0f);
             yield return new WaitForSeconds(2.0f);
 
             // -------------------------------------------------------------
             // Step 2. SFX 동시 중첩 재생 테스트
             // -------------------------------------------------------------
             Debug.Log("[AudioFrameworkTest] Step 2: Playing Multiple SFX simultaneously (Attack, Hit, ButtonClick)...");
-            AudioPlayer.PlaySfx(AudioType.Attack);
-            AudioPlayer.PlaySfx(AudioType.Hit);
-            AudioPlayer.PlaySfx(AudioType.ButtonClick);
+            AudioPlayer.PlaySfx(Framework.Audio.AudioType.Attack);
+            AudioPlayer.PlaySfx(Framework.Audio.AudioType.Hit);
+            AudioPlayer.PlaySfx(Framework.Audio.AudioType.ButtonClick);
             yield return new WaitForSeconds(1.5f);
 
             // -------------------------------------------------------------
             // Step 3. BGM 교체 및 Fade Out -> Fade In 테스트
             // -------------------------------------------------------------
             Debug.Log("[AudioFrameworkTest] Step 3: Transitioning BGM from MainTheme to Battle (fadeDuration: 2.0s)...");
-            AudioPlayer.PlayBgm(AudioType.Battle, loop: true, fadeDuration: 2.0f);
+            AudioPlayer.PlayBgm(Framework.Audio.AudioType.Battle, loop: true, fadeDuration: 2.0f);
             yield return new WaitForSeconds(3.0f);
 
             // -------------------------------------------------------------
@@ -72,7 +71,7 @@ namespace Example.Audio
             AudioPlayer.SetBgmVolume(0.5f);
 
             Debug.Log("[AudioFrameworkTest] Playing SFX while SFX is muted (should not be audible)...");
-            AudioPlayer.PlaySfx(AudioType.Attack);
+            AudioPlayer.PlaySfx(Framework.Audio.AudioType.Attack);
             yield return new WaitForSeconds(1.0f);
 
             Debug.Log("[AudioFrameworkTest] Unmuting SFX and restoring BGM Volume...");
@@ -84,9 +83,9 @@ namespace Example.Audio
             // Step 5. Specific SFX Stop 및 BGM Fade Out Stop
             // -------------------------------------------------------------
             Debug.Log("[AudioFrameworkTest] Step 5: Playing Attack SFX and stopping Attack SFX specifically...");
-            AudioPlayer.PlaySfx(AudioType.Attack);
+            AudioPlayer.PlaySfx(Framework.Audio.AudioType.Attack);
             yield return new WaitForSeconds(0.1f);
-            AudioPlayer.StopSfx(AudioType.Attack);
+            AudioPlayer.StopSfx(Framework.Audio.AudioType.Attack);
 
             Debug.Log("[AudioFrameworkTest] Stopping BGM with 1.5s Fade Out...");
             AudioPlayer.StopBgm(fadeDuration: 1.5f);
